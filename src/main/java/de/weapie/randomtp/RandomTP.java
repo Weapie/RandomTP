@@ -38,7 +38,7 @@ public final class RandomTP extends JavaPlugin {
 
 
     private Location spawn = new Location(Bukkit.getWorld("world"), 0, 0, 0);
-    private int cooldownTime = 10 * 1000; // 10 seconds
+    private int cooldownTime = 15 * 1000; // 15 seconds
     private Map<Player, Long> cooldowns = new HashMap();
 
     private Material[] unsafeBlocks = new Material[]{ Material.LAVA, Material.FIRE, Material.CACTUS, Material.WATER, Material.MAGMA_BLOCK };
