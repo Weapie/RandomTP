@@ -1,0 +1,8 @@
+name: RandomTP
+version: '${version}'
+description: "This plugin is for random teleportations in overworld and nether"
+main: de.weapie.randomtp.RandomTP
+api-version: '1.20'
+author: "Weapie"
+commands:
+  randomtp:
