@@ -28,12 +28,17 @@ public class RandomTPCommand implements CommandExecutor {
 
             return true;
         } else if(args.length == 1) {
-            if(args[0].equalsIgnoreCase("force")) {
-                RandomTPRunnable randomTPRunnable = new RandomTPRunnable(player, player.getLocation(), true);
-                Thread thread = new Thread(randomTPRunnable);
-                thread.start();
+            if(player.hasPermission("de.weapie.randomtp")) {
+                if(args[0].equalsIgnoreCase("force")) {
+                    RandomTPRunnable randomTPRunnable = new RandomTPRunnable(player, player.getLocation(), true);
+                    Thread thread = new Thread(randomTPRunnable);
+                    thread.start();
 
-                return true;
+                    return true;
+                }
+            } else {
+                player.sendMessage(RandomTP.getInstance().getPrefix() + "§cYou don't have the permission to perform this command!");
+                return false;
             }
         }
 
