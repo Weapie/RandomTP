@@ -1,6 +1,7 @@
 package de.weapie.randomtp;
 
 import de.weapie.randomtp.commands.RandomTPCommand;
+import de.weapie.randomtp.listeners.SignInteractListener;
 import de.weapie.randomtp.searcher.RandomLocationSearcher;
 import de.weapie.randomtp.searcher.ValidatorRegistry;
 import de.weapie.randomtp.searcher.exception.NotFoundException;
@@ -50,6 +51,8 @@ public final class RandomTP extends JavaPlugin {
         this.initValidators();
 
         getCommand("randomtp").setExecutor(new RandomTPCommand());
+
+        Bukkit.getPluginManager().registerEvents(new SignInteractListener(), this);
     }
 
     @Override
