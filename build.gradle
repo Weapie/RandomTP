@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
-    id "com.github.johnrengelman.shadow" version "7.1.0"
+    id("java")
+    id("java-library")
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 group = 'de.weapie'
@@ -10,23 +11,29 @@ repositories {
     mavenCentral()
     maven {
         name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
+        url = "https://papermc.io/repo/repository/maven-public/"
     }
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "jfHomeRepoPrivate"
+        url = "https://repo.jf.home/private"
+        credentials(PasswordCredentials)
+    }
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    compileOnly project.libs.paperapi
 
-    implementation "io.papermc:paperlib:1.0.7"
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation project.libs.devlokFiles
+    implementation project.libs.paperlib
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.30'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    compileOnly project.libs.lombok
+    annotationProcessor project.libs.lombok
+    testCompileOnly project.libs.lombok
+    testAnnotationProcessor project.libs.lombok
 }
 
 def targetJavaVersion = 17
@@ -57,5 +64,9 @@ processResources {
 }
 
 shadowJar {
+    archiveBaseName.set(project.name)
+    archiveVersion.set(project.version)
+    archiveFileName.set("${archiveBaseName.get()}-${archiveVersion.get()}.jar")
+
     relocate "io.papermc.lib", "de.weapie.randomtp.paperlib"
 }

@@ -1,0 +1,13 @@
+[versions]
+lombok = "1.18.32"
+devlokFiles = "2024.07.02-01"
+paperlib = "1.0.8-SNAPSHOT"
+paperapi = "1.20.4-R0.1-SNAPSHOT"
+
+[libraries]
+lombok = { group = "org.projectlombok", name="lombok", version.ref = "lombok" }
+devlokFiles = { group = "de.weapie", name="devlok-files", version.ref = "devlokFiles" }
+paperlib = { group = "io.papermc", name="paperlib", version.ref = "paperlib" }
+paperapi = { group = "io.papermc.paper", name="paper-api", version.ref = "paperapi" }
+
+[plugins]
