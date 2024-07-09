@@ -52,7 +52,9 @@ public final class RandomTP extends JavaPlugin {
                         add(new MessageModule("help_message", "§cPlease use the command /randomtp!"));
                     }},
                     new String[]{ "world", "nether" },
-                    new Material[]{ Material.LAVA, Material.FIRE, Material.CACTUS, Material.WATER, Material.MAGMA_BLOCK, Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.BIRCH_LEAVES, Material.JUNGLE_LEAVES, Material.ACACIA_LEAVES, Material.DARK_OAK_LEAVES }
+                    new Material[]{ Material.LAVA, Material.FIRE, Material.CACTUS, Material.WATER, Material.MAGMA_BLOCK, Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.BIRCH_LEAVES, Material.JUNGLE_LEAVES, Material.ACACIA_LEAVES, Material.DARK_OAK_LEAVES },
+                    500,
+                    10000
             ))
             .build();
 

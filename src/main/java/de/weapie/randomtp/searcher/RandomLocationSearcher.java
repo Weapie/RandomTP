@@ -8,6 +8,7 @@ import de.weapie.randomtp.searcher.validators.LocationValidator;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Location;
 
@@ -16,6 +17,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+@ToString
 public class RandomLocationSearcher {
 
     private final RandomTP plugin;
@@ -25,10 +27,6 @@ public class RandomLocationSearcher {
     @Getter
     @Setter
     private Location startLocation;
-    @Getter
-    private int minRadius = 500;
-    @Getter
-    private int maxRadius = 200000;
     private int checkDelay = 1;
     private int currentTries = 0;
     private int maxTries = 10;
@@ -46,13 +44,11 @@ public class RandomLocationSearcher {
     private final Multimap<Integer, Integer> checked = MultimapBuilder.hashKeys().hashSetValues().build();
     private final ValidatorRegistry validators = new ValidatorRegistry();
 
-    public RandomLocationSearcher(RandomTP plugin, Location startLocation, int minRadius, int maxRadius, int maxTries, LocationValidator... validators) {
+    public RandomLocationSearcher(RandomTP plugin, Location startLocation, int maxTries, LocationValidator... validators) {
         Validate.notNull(startLocation, "StartLocation cannot be null");
         Validate.notNull(startLocation.getWorld(), "StartLocation world cannot be null");
         this.plugin = plugin;
         this.startLocation = startLocation;
-        this.minRadius = minRadius;
-        this.maxRadius = maxRadius;
         this.maxTries = maxTries;
         this.random = plugin.getRandom();
 
@@ -103,11 +99,10 @@ public class RandomLocationSearcher {
         }
 
         this.lastCheck = this.startLocation.getWorld().getTime();
-        double x = this.randomMinMax(this.minRadius, this.maxRadius);
-        double z = this.randomMinMax(this.minRadius, this.maxRadius);
+        double x = this.randomMinMax(RandomTP.getInstance().getPluginConfig().value().getMinRadius(), RandomTP.getInstance().getPluginConfig().value().getMaxRadius());
+        double z = this.randomMinMax(RandomTP.getInstance().getPluginConfig().value().getMinRadius(), RandomTP.getInstance().getPluginConfig().value().getMaxRadius());
 
         Location randomLocation = new Location(this.startLocation.getWorld(), x, this.minY, z);
-        //randomLocation.setY(randomLocation.getWorld().getHighestBlockYAt(randomLocation) + 1);
         PaperLib.getChunkAtAsync(randomLocation).thenApply(chunk -> {
             this.currentTries++;
 
@@ -157,14 +152,4 @@ public class RandomLocationSearcher {
         return this.random.nextInt((maxValue - minValue) + 1) + minValue;
     }
 
-    @Override
-    public String toString() {
-        return "RandomLocationSearcher{" +
-                "uniqueId=" + this.uniqueId +
-                ", startLocation=" + this.startLocation +
-                ", minRadius=" + this.minRadius +
-                ", maxRadius=" + this.maxRadius +
-                ", maxTries=" + this.maxTries +
-                '}';
-    }
 }

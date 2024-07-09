@@ -23,5 +23,7 @@ public class PluginConfig {
     private List<MessageModule> messages;
     private String[] allowedWorlds;
     private Material[] unsafeBlocks;
+    private int minRadius;
+    private int maxRadius;
 
 }
